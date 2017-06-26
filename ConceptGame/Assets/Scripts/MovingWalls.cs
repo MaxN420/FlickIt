@@ -18,9 +18,9 @@ public class MovingWalls : MonoBehaviour {
 	}
 
 	void UpdateMovement(){
-		if (this.transform.position.x > 3f) {
+		if (this.transform.position.x > 1f) {
 			MovingDirection = Vector2.left;
-		} else if (this.transform.position.x < -3f) { 
+		} else if (this.transform.position.x < -1f) { 
 			MovingDirection = Vector2.right;
 		} 
 		this.transform.Translate (MovingDirection * (Time.smoothDeltaTime*WallSpeedConstant));

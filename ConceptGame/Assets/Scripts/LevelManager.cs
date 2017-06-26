@@ -37,6 +37,11 @@ public class LevelManager : MonoBehaviour {
 			Instantiate(Resources.Load<GameObject>("background"));
 		}
 	}
+
+	void Start() {
+		Level_UIText = GameObject.Find ("Canvas(Clone)/Level").GetComponent<Text>();
+		Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text>();
+	}
 		
 	void InstantiateLevel(string toInstantiate) {
 		itemsToInstantiate = Resources.LoadAll(toInstantiate);
