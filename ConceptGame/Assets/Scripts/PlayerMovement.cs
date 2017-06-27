@@ -6,16 +6,15 @@ public class PlayerMovement : MonoBehaviour {
 
 	private Vector2 currentMousePos;
 	public GameObject currentPlayer;
-	public GameObject wall1;
 	private Vector2 currentPlayerPos;
 	public Rigidbody2D rigidBody2D;
 	private float speed;
 	private Vector2 direction;
-	private float clickHypotenuse;
 	private float xDiff;
 	private float yDiff;
 	public static int movesCount = 3;
 	private LevelManager levelRef;
+	public float maxSpeed = 15f;
 
 	void Start() {
 		levelRef = GameObject.Find("Main Camera").GetComponent<LevelManager>();
@@ -34,44 +33,31 @@ public class PlayerMovement : MonoBehaviour {
 			xDiff = currentMousePos.x - currentPlayerPos.x;
 			yDiff = currentMousePos.y - currentPlayerPos.y;
 
-			direction = new Vector2 (-(xDiff), -(yDiff));
-			clickHypotenuse = Mathf.Sqrt ((xDiff * xDiff) + (yDiff * yDiff));
+			direction = new Vector2 (xDiff, yDiff);
 
-			//Sets a limit on ball speed so that doesn't break through the wall (default collider doesn't work with high speeds qq)
-			if (clickHypotenuse < 5 && ((Mathf.Abs(direction.x) < 1.5f) && (Mathf.Abs(direction.y) < 1.5f))) {
-				rigidBody2D.AddForce (direction * (clickHypotenuse * 200));
-				Debug.Log (direction * (clickHypotenuse * 200));
-			} else {
-				//rigidBody2D.AddForce (MouseUpCap (direction.x, direction.y) * (clickHypotenuse * 200));
-
-			}
+			rigidBody2D.AddForce (direction * 500);
 		}
-	}
-
-	Vector2 MouseUpCap(float x, float y) {
-		for (float i = Mathf.Abs(x); i > 1.5f; i++) {
-			x /= 2;
-		}
-		for (float j = Mathf.Abs(y); j > 1.5f; j++) {
-			y /= 2;
-		}
-		Debug.Log (x);
-		Debug.Log (y);
-		return new Vector2 (x, y);
 	}
 
 	void FixedUpdate() {
+		
 		// Allows the ball to slow down quicker, applying forces means it takes ages to stop.
 		if (rigidBody2D.velocity.magnitude < 1.5 && rigidBody2D.velocity.magnitude != 0) {
 			rigidBody2D.drag += 0.02f;
 		} else {
-			rigidBody2D.drag = 0.5f;
+			rigidBody2D.drag = 1f;
 		}
 
+		//Checks if have no moves left and ball is inactive
 		if (movesCount == 0 && rigidBody2D.IsSleeping()) {
 			movesCount = 3;
 			levelRef.GameOver();
 		}
-	}
 
+		//Trying to create a speed limiter
+		if(rigidBody2D.velocity.magnitude > maxSpeed){
+			rigidBody2D.velocity = rigidBody2D.velocity.normalized * maxSpeed;
+			Debug.Log (rigidBody2D.velocity.magnitude);
+		}
+	}
 }
