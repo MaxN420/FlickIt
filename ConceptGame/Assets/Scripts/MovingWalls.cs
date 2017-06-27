@@ -5,7 +5,8 @@ using UnityEngine;
 public class MovingWalls : MonoBehaviour {
 
 	private Vector2 MovingDirection;
-	private float WallSpeedConstant = 2;
+	public float wallSpeedConstant = 2;
+	public float xConstraints = 1f;
 
 	// Use this for initialization
 	void Start() {
@@ -18,12 +19,12 @@ public class MovingWalls : MonoBehaviour {
 	}
 
 	void UpdateMovement(){
-		if (this.transform.position.x > 1f) {
+		if (this.transform.position.x > xConstraints) {
 			MovingDirection = Vector2.left;
-		} else if (this.transform.position.x < -1f) { 
+		} else if (this.transform.position.x < -xConstraints) { 
 			MovingDirection = Vector2.right;
 		} 
-		this.transform.Translate (MovingDirection * (Time.smoothDeltaTime*WallSpeedConstant));
+		this.transform.Translate (MovingDirection * (Time.smoothDeltaTime*wallSpeedConstant));
 	}
 
 }

@@ -38,12 +38,26 @@ public class PlayerMovement : MonoBehaviour {
 			clickHypotenuse = Mathf.Sqrt ((xDiff * xDiff) + (yDiff * yDiff));
 
 			//Sets a limit on ball speed so that doesn't break through the wall (default collider doesn't work with high speeds qq)
-			if (clickHypotenuse < 5) {
-				rigidBody2D.AddForce (direction * (clickHypotenuse * 100));
+			if (clickHypotenuse < 5 && ((Mathf.Abs(direction.x) < 1.5f) && (Mathf.Abs(direction.y) < 1.5f))) {
+				rigidBody2D.AddForce (direction * (clickHypotenuse * 200));
+				Debug.Log (direction * (clickHypotenuse * 200));
 			} else {
-				rigidBody2D.AddForce (direction / 1.5f * (5 * 100));
+				//rigidBody2D.AddForce (MouseUpCap (direction.x, direction.y) * (clickHypotenuse * 200));
+
 			}
 		}
+	}
+
+	Vector2 MouseUpCap(float x, float y) {
+		for (float i = Mathf.Abs(x); i > 1.5f; i++) {
+			x /= 2;
+		}
+		for (float j = Mathf.Abs(y); j > 1.5f; j++) {
+			y /= 2;
+		}
+		Debug.Log (x);
+		Debug.Log (y);
+		return new Vector2 (x, y);
 	}
 
 	void FixedUpdate() {
