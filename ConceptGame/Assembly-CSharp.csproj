@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\MainScreen.cs" />
      <Compile Include="Assets\Scripts\MovingWalls.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\PointsManager.cs" />
      <Compile Include="Assets\Scripts\RestartScene.cs" />
      <Compile Include="Assets\Scripts\Star.cs" />
  <Reference Include="UnityEngine.UI">

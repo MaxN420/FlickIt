@@ -15,9 +15,13 @@ public class PlayerMovement : MonoBehaviour {
 	public static int movesCount = 3;
 	private LevelManager levelRef;
 	public float maxSpeed = 15f;
+	private GameObject[] gravityHole;
+	public float maxGravDist = 3.0f;
+	public float maxGravity = 35.0f;
 
 	void Start() {
 		levelRef = GameObject.Find("Main Camera").GetComponent<LevelManager>();
+		gravityHole = GameObject.FindGameObjectsWithTag ("GravityHole");
 	}
 	//When mouse click is ended, determines the ending mouse position.
 	//Need to compare this with the current ball position.
@@ -25,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
 	//will determine the forces applied to the player (including angles too).
 	void OnMouseUp() {
 		//making sure enough moves left, and that the ball isn't currently moving
-		if (movesCount != 0 && rigidBody2D.velocity.magnitude < 0.3f) {
+		if (movesCount != 0 && rigidBody2D.velocity.magnitude < 0.7f) {
 			movesCount-=1;
 			currentMousePos = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0f));
 			currentPlayerPos = currentPlayer.GetComponent<Transform> ().position;
@@ -58,6 +62,15 @@ public class PlayerMovement : MonoBehaviour {
 		if(rigidBody2D.velocity.magnitude > maxSpeed){
 			rigidBody2D.velocity = rigidBody2D.velocity.normalized * maxSpeed;
 			Debug.Log (rigidBody2D.velocity.magnitude);
+		}
+
+		// Gravity effect
+		foreach (GameObject planet in gravityHole) {
+			float dist = Vector3.Distance (planet.transform.position, transform.position);
+			if (dist <= maxGravDist && rigidBody2D.velocity.magnitude != 0) {
+				Vector3 v = planet.transform.position - transform.position;
+				rigidBody2D.AddForce (v.normalized * (1f - dist / maxGravDist) * maxGravity);
+			}
 		}
 	}
 }

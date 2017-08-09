@@ -12,6 +12,8 @@ public class LevelManager : MonoBehaviour {
 	public static int levelTracker = 1;
 	private GameObject refLevelTest;
 	private Object[] itemsToInstantiate;
+	private bool levelPassed = false;
+
 	// private PlayerMovement refPlayerTest; not used because i only wanna access static movesCount
 
 	// Use this for initialization
@@ -42,14 +44,22 @@ public class LevelManager : MonoBehaviour {
 			InstantiateLevel ("Level5to9");
 			InstantiateLevel("Level5");
 			levelTracker = 5;
-		} else {
-			Instantiate(Resources.Load<GameObject>("background"));
+		}  else if (SceneManager.GetActiveScene ().name == "Level6") {
+			InstantiateLevel("Default");
+			InstantiateLevel ("Level5to9");
+			InstantiateLevel("Level6");
+			levelTracker = 6;
+		} else if (SceneManager.GetActiveScene ().name == "Level7") {
+			InstantiateLevel("Default");
+			InstantiateLevel ("Level5to9");
+			InstantiateLevel("Level7");
+			levelTracker = 7;
 		}
 	}
 
 	void Start() {
-		Level_UIText = GameObject.Find ("Canvas(Clone)/Level").GetComponent<Text>();
-		Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text>();
+			Level_UIText = GameObject.Find ("Canvas(Clone)/Level").GetComponent<Text> ();
+			Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text> ();
 	}
 		
 	void InstantiateLevel(string toInstantiate) {
@@ -60,22 +70,34 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void Update() {
-		Score_UIText.text = PlayerMovement.movesCount.ToString() + " moves left";
-		Level_UIText.text = "Level " + levelTracker.ToString();
-		if (Input.GetKeyDown (KeyCode.V)){
-			SceneManager.LoadScene ("Main");
-			levelTracker = 1;
-			PlayerMovement.movesCount = 3;
-		}
+			Score_UIText.text = PlayerMovement.movesCount.ToString () + " moves left";
+			Level_UIText.text = "Level " + levelTracker.ToString ();
+			if (Input.GetKeyDown (KeyCode.V)) {
+				SceneManager.LoadScene ("Main");
+				levelTracker = 1;
+				PlayerMovement.movesCount = 3;
+			}
 	}
 
+
 	public void GameOver() {
+		levelPassed = false;
 		SceneManager.LoadScene ("Main");
-		levelTracker = 1;
 	}
 
 	public void LevelPassed() {
-		levelTracker+=1;
+		levelPassed = true;
+		levelTracker++;
+		PlayerMovement.movesCount = 3;
+		SceneManager.LoadScene ("Level" + levelTracker);
+	}
+
+	public void nextLevel() {
+		SceneManager.LoadScene ("Level" + levelTracker.ToString());
+		PlayerMovement.movesCount = 3;
+	}
+
+	public void tryAgain() {
 		SceneManager.LoadScene ("Level" + levelTracker.ToString());
 		PlayerMovement.movesCount = 3;
 	}
