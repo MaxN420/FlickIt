@@ -8,11 +8,10 @@ public class LevelManager : MonoBehaviour {
 
 	public Text Score_UIText;
 	public Text Level_UIText;
-	public Text LevelStars_UIText;
+	public GameObject levelPanel;
 	public static int levelTracker = 1;
 	private GameObject refLevelTest;
 	private Object[] itemsToInstantiate;
-	private bool levelPassed = false;
 
 	// private PlayerMovement refPlayerTest; not used because i only wanna access static movesCount
 
@@ -58,8 +57,14 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void Start() {
-			Level_UIText = GameObject.Find ("Canvas(Clone)/Level").GetComponent<Text> ();
-			Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text> ();
+		Level_UIText = GameObject.Find ("Canvas(Clone)/Level").GetComponent<Text> ();
+		Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text> ();
+		levelPanel = GameObject.Find ("Canvas(Clone)/Panel");
+		// initialising buttons?
+		GameObject.Find ("Canvas(Clone)/Panel/NextLevelBtn").GetComponent<Button> ().onClick.AddListener (nextLevel);
+		GameObject.Find ("Canvas(Clone)/Panel/TryAgainBtn").GetComponent<Button> ().onClick.AddListener (tryAgain);
+		GameObject.Find ("Canvas(Clone)/Panel/QuitGameBtn").GetComponent<Button> ().onClick.AddListener (GameOver);
+		levelPanel.SetActive (false);
 	}
 		
 	void InstantiateLevel(string toInstantiate) {
@@ -81,20 +86,18 @@ public class LevelManager : MonoBehaviour {
 
 
 	public void GameOver() {
-		levelPassed = false;
 		SceneManager.LoadScene ("Main");
 	}
 
 	public void LevelPassed() {
-		levelPassed = true;
-		levelTracker++;
-		PlayerMovement.movesCount = 3;
-		SceneManager.LoadScene ("Level" + levelTracker);
+		levelPanel.SetActive (true);
 	}
 
 	public void nextLevel() {
+		levelTracker++;
 		SceneManager.LoadScene ("Level" + levelTracker.ToString());
 		PlayerMovement.movesCount = 3;
+		levelPanel.SetActive (false);
 	}
 
 	public void tryAgain() {
