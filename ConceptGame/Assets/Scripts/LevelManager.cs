@@ -8,10 +8,19 @@ public class LevelManager : MonoBehaviour {
 
 	public Text Score_UIText;
 	public Text Level_UIText;
-	public GameObject levelPanel;
+	public GameObject levelPanelPass;
+	public GameObject levelPanelFail;
 	public static int levelTracker = 1;
 	private GameObject refLevelTest;
 	private Object[] itemsToInstantiate;
+	private Button nextLevelButtonPass;
+	private Button tryAgainButtonPass;
+	private Button quitGameButtonPass;
+	private Button tryAgainButtonFail;
+	private Button quitGameButtonFail;
+	public static float levelTime = 0;
+	private bool levelFinished = false;
+	public static int levelPoints;
 
 	// private PlayerMovement refPlayerTest; not used because i only wanna access static movesCount
 
@@ -59,12 +68,22 @@ public class LevelManager : MonoBehaviour {
 	void Start() {
 		Level_UIText = GameObject.Find ("Canvas(Clone)/Level").GetComponent<Text> ();
 		Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text> ();
-		levelPanel = GameObject.Find ("Canvas(Clone)/Panel");
+		levelPanelPass = GameObject.Find ("Canvas(Clone)/PanelPass");
+		levelPanelFail = GameObject.Find ("Canvas(Clone)/PanelFail");
 		// initialising buttons?
-		GameObject.Find ("Canvas(Clone)/Panel/NextLevelBtn").GetComponent<Button> ().onClick.AddListener (nextLevel);
-		GameObject.Find ("Canvas(Clone)/Panel/TryAgainBtn").GetComponent<Button> ().onClick.AddListener (tryAgain);
-		GameObject.Find ("Canvas(Clone)/Panel/QuitGameBtn").GetComponent<Button> ().onClick.AddListener (GameOver);
-		levelPanel.SetActive (false);
+		nextLevelButtonPass = GameObject.Find ("Canvas(Clone)/PanelPass/NextLevelBtn").GetComponent<Button> ();
+		nextLevelButtonPass.onClick.AddListener (nextLevel);
+		tryAgainButtonPass = GameObject.Find ("Canvas(Clone)/PanelPass/TryAgainBtn").GetComponent<Button> ();
+		tryAgainButtonPass.onClick.AddListener (tryAgain);
+		quitGameButtonPass = GameObject.Find ("Canvas(Clone)/PanelPass/QuitGameBtn").GetComponent<Button> ();
+		quitGameButtonPass.onClick.AddListener (GameOver);
+		tryAgainButtonFail = GameObject.Find ("Canvas(Clone)/PanelFail/TryAgainBtn").GetComponent<Button> ();
+		tryAgainButtonFail.onClick.AddListener (tryAgain);
+		quitGameButtonFail = GameObject.Find ("Canvas(Clone)/PanelFail/QuitGameBtn").GetComponent<Button> ();
+		quitGameButtonFail.onClick.AddListener (GameOver);
+		levelPanelPass.SetActive (false);
+		levelPanelFail.SetActive (false);
+		levelTime = 0f;
 	}
 		
 	void InstantiateLevel(string toInstantiate) {
@@ -75,13 +94,17 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void Update() {
-			Score_UIText.text = PlayerMovement.movesCount.ToString () + " moves left";
-			Level_UIText.text = "Level " + levelTracker.ToString ();
-			if (Input.GetKeyDown (KeyCode.V)) {
-				SceneManager.LoadScene ("Main");
-				levelTracker = 1;
-				PlayerMovement.movesCount = 3;
-			}
+		Score_UIText.text = PlayerMovement.movesCount.ToString () + " moves left";
+		Level_UIText.text = "Level " + levelTracker.ToString ();
+		if (Input.GetKeyDown (KeyCode.V)) {
+			SceneManager.LoadScene ("Main");
+			levelTracker = 1;
+			PlayerMovement.movesCount = 3;
+		}
+
+		if (levelFinished != true) {
+			levelTime += Time.deltaTime;
+		}
 	}
 
 
@@ -89,15 +112,24 @@ public class LevelManager : MonoBehaviour {
 		SceneManager.LoadScene ("Main");
 	}
 
-	public void LevelPassed() {
-		levelPanel.SetActive (true);
+	public void loadPanelFail() {
+		levelFinished = true;
+		levelPanelFail.SetActive (true);
+	}
+
+	public void loadPanelPass() {
+		levelFinished = true;
+		levelPanelPass.SetActive (true);
+		Debug.Log (levelTime);
+		// Accumulates points everytime level passed
+		levelPoints += PointsManager.determineLevelPoints (PlayerMovement.movesCount, levelTime);
 	}
 
 	public void nextLevel() {
 		levelTracker++;
 		SceneManager.LoadScene ("Level" + levelTracker.ToString());
 		PlayerMovement.movesCount = 3;
-		levelPanel.SetActive (false);
+		levelPanelPass.SetActive (false);
 	}
 
 	public void tryAgain() {

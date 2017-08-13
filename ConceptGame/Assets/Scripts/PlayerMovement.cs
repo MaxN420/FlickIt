@@ -53,9 +53,9 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		//Checks if have no moves left and ball is inactive
-		if (movesCount == 0 && rigidBody2D.IsSleeping()) {
+		if (movesCount == 0 && rigidBody2D.IsSleeping() && !(levelRef.levelPanelPass.activeSelf)) {
 			movesCount = 3;
-			levelRef.GameOver();
+			levelRef.loadPanelFail();
 		}
 
 		//Trying to create a speed limiter
