@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainScreen : MonoBehaviour {
 
 	public void StartGame() {
-		SceneManager.LoadScene ("Level1");
+		SceneManager.LoadScene ("GenericLevel");
 	}
 
 }

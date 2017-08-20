@@ -26,42 +26,47 @@ public class LevelManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		if (SceneManager.GetActiveScene ().name == "Main") {
+		switch (levelTracker) {
+		case 0:
+			SceneManager.LoadScene ("Main");
 			Instantiate (Resources.Load<GameObject> ("background"));
-		} else if (SceneManager.GetActiveScene ().name == "Level1") {
+			break;
+		case 1:
 			InstantiateLevel("Default");
 			InstantiateLevel ("Level1to4");
-			levelTracker = 1;
-		} else if (SceneManager.GetActiveScene ().name == "Level2") {
+			break;
+		case 2:
 			InstantiateLevel("Default");
 			InstantiateLevel ("Level1to4");
 			InstantiateLevel("Level2");
-			levelTracker = 2;
-		} else if (SceneManager.GetActiveScene ().name == "Level3") {
+			break;
+		case 3:
 			InstantiateLevel("Default");
 			InstantiateLevel ("Level1to4");
 			InstantiateLevel("Level3");
-			levelTracker = 3;
-		} else if (SceneManager.GetActiveScene ().name == "Level4") {
+			break;
+		case 4:
 			InstantiateLevel("Default");
 			InstantiateLevel ("Level1to4");
 			InstantiateLevel("Level4");
-			levelTracker = 4;
-		}  else if (SceneManager.GetActiveScene ().name == "Level5") {
+			break;
+		case 5:
 			InstantiateLevel("Default");
 			InstantiateLevel ("Level5to9");
 			InstantiateLevel("Level5");
-			levelTracker = 5;
-		}  else if (SceneManager.GetActiveScene ().name == "Level6") {
+			break;
+		case 6:
 			InstantiateLevel("Default");
 			InstantiateLevel ("Level5to9");
 			InstantiateLevel("Level6");
-			levelTracker = 6;
-		} else if (SceneManager.GetActiveScene ().name == "Level7") {
+			break;
+		case 7:
 			InstantiateLevel("Default");
 			InstantiateLevel ("Level5to9");
 			InstantiateLevel("Level7");
-			levelTracker = 7;
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -123,17 +128,37 @@ public class LevelManager : MonoBehaviour {
 		Debug.Log (levelTime);
 		// Accumulates points everytime level passed
 		levelPoints += PointsManager.determineLevelPoints (PlayerMovement.movesCount, levelTime);
+		Debug.Log (levelPoints);
 	}
 
 	public void nextLevel() {
 		levelTracker++;
-		SceneManager.LoadScene ("Level" + levelTracker.ToString());
+		//SceneManager.LoadScene ("Level" + levelTracker.ToString());
 		PlayerMovement.movesCount = 3;
 		levelPanelPass.SetActive (false);
+		setupLevel();
 	}
 
 	public void tryAgain() {
-		SceneManager.LoadScene ("Level" + levelTracker.ToString());
+		reloadLevel ();
 		PlayerMovement.movesCount = 3;
+	}
+
+	public void setupLevel() {
+		deleteAll();
+		reloadLevel ();
+	}
+
+	public void reloadLevel(){
+		deleteAll ();
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
+
+	public void deleteAll() {
+		foreach (GameObject o in Object.FindObjectsOfType<GameObject>()) {
+			if (o.tag != "MainCamera") {
+				Destroy (o);
+			}
+		}
 	}
 }
