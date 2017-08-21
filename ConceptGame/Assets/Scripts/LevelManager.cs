@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour {
 
 	public Text Score_UIText;
+	public static Text ScoreText_UIText;
 	public Text Level_UIText;
+	public Text TotalScore_UIText;
 	public GameObject levelPanelPass;
 	public GameObject levelPanelFail;
 	public static int levelTracker = 1;
@@ -20,6 +22,7 @@ public class LevelManager : MonoBehaviour {
 	private Button quitGameButtonFail;
 	public static float levelTime = 0;
 	private bool levelFinished = false;
+	public static int levelPointsTotal;
 	public static int levelPoints;
 
 	// private PlayerMovement refPlayerTest; not used because i only wanna access static movesCount
@@ -73,6 +76,10 @@ public class LevelManager : MonoBehaviour {
 	void Start() {
 		Level_UIText = GameObject.Find ("Canvas(Clone)/Level").GetComponent<Text> ();
 		Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text> ();
+		ScoreText_UIText = GameObject.Find ("Canvas(Clone)/ScoreText").GetComponent<Text> ();
+		TotalScore_UIText = GameObject.Find ("Canvas(Clone)/TotalScoreText").GetComponent<Text> ();
+		TotalScore_UIText.text = "";
+		ScoreText_UIText.text = "";
 		levelPanelPass = GameObject.Find ("Canvas(Clone)/PanelPass");
 		levelPanelFail = GameObject.Find ("Canvas(Clone)/PanelFail");
 		// initialising buttons?
@@ -125,10 +132,11 @@ public class LevelManager : MonoBehaviour {
 	public void loadPanelPass() {
 		levelFinished = true;
 		levelPanelPass.SetActive (true);
-		Debug.Log (levelTime);
-		// Accumulates points everytime level passed
-		levelPoints += PointsManager.determineLevelPoints (PlayerMovement.movesCount, levelTime);
-		Debug.Log (levelPoints);
+		levelPoints = PointsManager.determineLevelPoints (PlayerMovement.movesCount, levelTime);
+		levelPointsTotal += levelPoints;
+		ScoreText_UIText.text = "+" + levelPoints.ToString();
+		ScoreText_UIText.GetComponent<PointsManager> ().Initialise (25, Vector2.up);
+		TotalScore_UIText.text = levelPointsTotal.ToString ();
 	}
 
 	public void nextLevel() {
