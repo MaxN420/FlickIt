@@ -35,7 +35,8 @@ public class LevelManager : MonoBehaviour {
 			Instantiate (Resources.Load<GameObject> ("background"));
 			break;
 		case 1:
-			InstantiateLevel("Default");
+			InstantiateLevel ("Default");
+			InstantiateLevel ("Level1");
 			InstantiateLevel ("Level1to4");
 			break;
 		case 2:
@@ -132,7 +133,7 @@ public class LevelManager : MonoBehaviour {
 	public void loadPanelPass() {
 		levelFinished = true;
 		levelPanelPass.SetActive (true);
-		levelPoints = PointsManager.determineLevelPoints (PlayerMovement.movesCount, levelTime);
+		levelPoints = PointsManager.determineLevelPoints (PlayerMovement.movesCount, levelTime, levelTracker);
 		levelPointsTotal += levelPoints;
 		ScoreText_UIText.text = "+" + levelPoints.ToString();
 		ScoreText_UIText.GetComponent<PointsManager> ().Initialise (25, Vector2.up);

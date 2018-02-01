@@ -27,8 +27,8 @@ public class PointsManager : MonoBehaviour {
 		}
 	}
 
-	public static int determineLevelPoints(int moves, float timeTaken) {
-		return Mathf.RoundToInt(100+((1/timeTaken)*10)*((1+moves)*25));
+	public static int determineLevelPoints(int moves, float timeTaken, int level) {
+		return Mathf.RoundToInt(((100+((1/timeTaken)*10)*((1+moves)*25)))*(1+(((float)level)/10)));
 	}
 
 	public void Initialise(float speed, Vector2 direction) {

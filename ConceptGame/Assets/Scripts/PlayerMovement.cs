@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour {
 		//Trying to create a speed limiter
 		if(rigidBody2D.velocity.magnitude > maxSpeed){
 			rigidBody2D.velocity = rigidBody2D.velocity.normalized * maxSpeed;
-			Debug.Log (rigidBody2D.velocity.magnitude);
+			//Debug.Log (rigidBody2D.velocity.magnitude);
 		}
 
 		// Gravity effect
