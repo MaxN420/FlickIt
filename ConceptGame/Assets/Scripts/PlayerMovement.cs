@@ -54,7 +54,6 @@ public class PlayerMovement : MonoBehaviour {
 
 		//Checks if have no moves left and ball is inactive
 		if (movesCount == 0 && rigidBody2D.IsSleeping() && !(levelRef.levelPanelPass.activeSelf)) {
-			movesCount = 3;
 			levelRef.loadPanelFail();
 		}
 
@@ -66,9 +65,9 @@ public class PlayerMovement : MonoBehaviour {
 
 		// Gravity effect
 		foreach (GameObject planet in gravityHole) {
-			float dist = Vector3.Distance (planet.transform.position, transform.position);
+			float dist = Vector2.Distance (planet.transform.position, transform.position);
 			if (dist <= maxGravDist && rigidBody2D.velocity.magnitude != 0) {
-				Vector3 v = planet.transform.position - transform.position;
+				Vector2 v = planet.transform.position - transform.position;
 				rigidBody2D.AddForce (v.normalized * (1f - dist / maxGravDist) * maxGravity);
 			}
 		}

@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour {
 	public Text TotalScore_UIText;
 	public GameObject levelPanelPass;
 	public GameObject levelPanelFail;
-	public static int levelTracker = 1;
+	public static int levelTracker = 8;
 	private GameObject refLevelTest;
 	private Object[] itemsToInstantiate;
 	private Button nextLevelButtonPass;
@@ -68,6 +68,11 @@ public class LevelManager : MonoBehaviour {
 			InstantiateLevel("Default");
 			InstantiateLevel ("Level5to9");
 			InstantiateLevel("Level7");
+			break;
+		case 8:
+			InstantiateLevel("Default");
+			InstantiateLevel ("Level5to9");
+			InstantiateLevel("Level8");
 			break;
 		default:
 			break;

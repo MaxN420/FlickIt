@@ -9,6 +9,8 @@ public class MovingWalls : MonoBehaviour {
 	public float wallSpeedConstant = 2;
 	public float xConstraints = 1f;
 	public float yConstraints = 2f;
+	public bool horizontal;
+	public bool vertical;
 
 	// Use this for initialization
 	void Start() {
@@ -21,23 +23,18 @@ public class MovingWalls : MonoBehaviour {
 	}
 
 	void UpdateMovement(){
-		if (SceneManager.GetActiveScene ().name == "Level6") {
-
-			// at the far right
-			if (this.transform.position.x > xConstraints) {
-				MovingDirection = new Vector2 (-1, -1);
-			// at the far left
-			} else if (this.transform.position.x < -xConstraints) { 
-				MovingDirection = new Vector2 (1, 1);
-			} 
-			this.transform.Translate (MovingDirection * (Time.smoothDeltaTime * wallSpeedConstant));
-
-
-		} else {
+		if (horizontal) {
 			if (this.transform.position.x > xConstraints) {
 				MovingDirection = Vector2.left;
 			} else if (this.transform.position.x < -xConstraints) { 
 				MovingDirection = Vector2.right;
+			} 
+			this.transform.Translate (MovingDirection * (Time.smoothDeltaTime * wallSpeedConstant));
+		} else if (vertical){
+			if (this.transform.position.y > yConstraints) {
+				MovingDirection = new Vector2(-1, -1);
+			} else if (this.transform.position.y < -yConstraints) { 
+				MovingDirection = new Vector2(1, 1);
 			} 
 			this.transform.Translate (MovingDirection * (Time.smoothDeltaTime * wallSpeedConstant));
 		}

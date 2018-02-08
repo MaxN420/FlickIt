@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\PointsManager.cs" />
      <Compile Include="Assets\Scripts\RestartScene.cs" />
+     <Compile Include="Assets\Scripts\RotateWalls.cs" />
      <Compile Include="Assets\Scripts\Star.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
