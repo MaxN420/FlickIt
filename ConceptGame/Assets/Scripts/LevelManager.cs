@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
+	public Text instructionText;
 	public Text Score_UIText;
 	public static Text ScoreText_UIText;
 	public Text Level_UIText;
 	public Text TotalScore_UIText;
 	public GameObject levelPanelPass;
 	public GameObject levelPanelFail;
-	public static int levelTracker = 8;
+	public static int levelTracker = 10;
 	private GameObject refLevelTest;
 	private Object[] itemsToInstantiate;
 	private Button nextLevelButtonPass;
@@ -37,42 +38,53 @@ public class LevelManager : MonoBehaviour {
 		case 1:
 			InstantiateLevel ("Default");
 			InstantiateLevel ("Level1");
-			InstantiateLevel ("Level1to4");
+			InstantiateLevel ("Level1to5");
+			InstantiateLevel ("InstructionText");
 			break;
 		case 2:
 			InstantiateLevel("Default");
-			InstantiateLevel ("Level1to4");
+			InstantiateLevel ("Level1to5");
 			InstantiateLevel("Level2");
 			break;
 		case 3:
 			InstantiateLevel("Default");
-			InstantiateLevel ("Level1to4");
+			InstantiateLevel ("Level1to5");
 			InstantiateLevel("Level3");
 			break;
 		case 4:
 			InstantiateLevel("Default");
-			InstantiateLevel ("Level1to4");
+			InstantiateLevel ("Level1to5");
 			InstantiateLevel("Level4");
 			break;
 		case 5:
 			InstantiateLevel("Default");
-			InstantiateLevel ("Level5to9");
+			InstantiateLevel ("Level1to5");
 			InstantiateLevel("Level5");
 			break;
 		case 6:
 			InstantiateLevel("Default");
-			InstantiateLevel ("Level5to9");
+			InstantiateLevel ("Level6to10");
 			InstantiateLevel("Level6");
 			break;
 		case 7:
 			InstantiateLevel("Default");
-			InstantiateLevel ("Level5to9");
+			InstantiateLevel ("Level6to10");
 			InstantiateLevel("Level7");
 			break;
 		case 8:
 			InstantiateLevel("Default");
-			InstantiateLevel ("Level5to9");
+			InstantiateLevel ("Level6to10");
 			InstantiateLevel("Level8");
+			break;
+		case 9:
+			InstantiateLevel("Default");
+			InstantiateLevel ("Level6to10");
+			InstantiateLevel("Level9");
+			break;
+		case 10:
+			InstantiateLevel("Default");
+			InstantiateLevel ("Level6to10");
+			InstantiateLevel("Level10");
 			break;
 		default:
 			break;
@@ -80,6 +92,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void Start() {
+		//GameObject.Find ("Canvas(Clone)").
 		Level_UIText = GameObject.Find ("Canvas(Clone)/Level").GetComponent<Text> ();
 		Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text> ();
 		ScoreText_UIText = GameObject.Find ("Canvas(Clone)/ScoreText").GetComponent<Text> ();
@@ -136,6 +149,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void loadPanelPass() {
+		
 		levelFinished = true;
 		levelPanelPass.SetActive (true);
 		levelPoints = PointsManager.determineLevelPoints (PlayerMovement.movesCount, levelTime, levelTracker);

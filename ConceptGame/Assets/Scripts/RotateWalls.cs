@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class RotateWalls : MonoBehaviour {
 
-	public int speed;
+	public float speed;
+	public bool direction; //true clockwise, false counterclockwise
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +19,10 @@ public class RotateWalls : MonoBehaviour {
 	}
 
 	void UpdateMovement(){
-		this.transform.Rotate (new Vector3 (0, 0, 40) * Time.deltaTime * speed);
+		if (direction) {
+			this.transform.Rotate (new Vector3 (0, 0, 40) * Time.deltaTime * speed);
+		} else {
+			this.transform.Rotate (new Vector3 (0, 0, -40) * Time.deltaTime * speed);
+		}
 	}
 }

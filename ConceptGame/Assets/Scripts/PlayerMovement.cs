@@ -44,7 +44,6 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		
 		// Allows the ball to slow down quicker, applying forces means it takes ages to stop.
 		if (rigidBody2D.velocity.magnitude < 1.5 && rigidBody2D.velocity.magnitude != 0) {
 			rigidBody2D.drag += 0.02f;
@@ -66,7 +65,7 @@ public class PlayerMovement : MonoBehaviour {
 		// Gravity effect
 		foreach (GameObject planet in gravityHole) {
 			float dist = Vector2.Distance (planet.transform.position, transform.position);
-			if (dist <= maxGravDist && rigidBody2D.velocity.magnitude != 0) {
+			if (dist <= maxGravDist && rigidBody2D.velocity.magnitude < 0) {
 				Vector2 v = planet.transform.position - transform.position;
 				rigidBody2D.AddForce (v.normalized * (1f - dist / maxGravDist) * maxGravity);
 			}
