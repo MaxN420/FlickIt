@@ -18,8 +18,10 @@ public class PlayerMovement : MonoBehaviour {
 	private GameObject[] gravityHole;
 	public float maxGravDist = 3.0f;
 	public float maxGravity = 35.0f;
+	public static AudioSource sound;
 
 	void Start() {
+		//sound = GameObject.Find ("Flcksnd").GetComponent<AudioSource>();
 		levelRef = GameObject.Find("Main Camera").GetComponent<LevelManager>();
 		gravityHole = GameObject.FindGameObjectsWithTag ("GravityHole");
 	}
@@ -29,7 +31,10 @@ public class PlayerMovement : MonoBehaviour {
 	//will determine the forces applied to the player (including angles too).
 	void OnMouseUp() {
 		//making sure enough moves left, and that the ball isn't currently moving
-		if (movesCount != 0 && rigidBody2D.velocity.magnitude < 0.7f) {
+		// && rigidBody2D.velocity.magnitude < 0.7f
+		if (movesCount != 0) {
+			//Audio.playFlck ();
+			//sound.Play ();
 			movesCount-=1;
 			currentMousePos = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0f));
 			currentPlayerPos = currentPlayer.GetComponent<Transform> ().position;
@@ -42,6 +47,14 @@ public class PlayerMovement : MonoBehaviour {
 			rigidBody2D.AddForce (direction * 500);
 		}
 	}
+
+
+	// Use this for initialization
+	void Awake () {
+		//source = Resources.Load ("Sounds/Sound Effects/soundscrate-arrow-swoosh-4");
+		//source.GetComponent<AudioSource> ();
+	}
+		
 
 	void FixedUpdate() {
 		// Allows the ball to slow down quicker, applying forces means it takes ages to stop.

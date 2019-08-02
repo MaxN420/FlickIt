@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: bbdd74cf8968c8240acbf3199812f5c5
+timeCreated: 1530746582
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Rubik
+  fontNames:
+  - Rubik
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 9f7fe43293fbb964bb0fad4fc4fbf91f, type: 3}
+  - {fileID: 12800000, guid: 58ec7173f1c924a4996f926140e5956d, type: 3}
+  - {fileID: 12800000, guid: a7e57a833163424488859c88d4c336e0, type: 3}
+  - {fileID: 12800000, guid: 8a690a044cdff2d40add226512dcbc20, type: 3}
+  - {fileID: 12800000, guid: 64d792650f1b38e4987a38053e9c6ef0, type: 3}
+  - {fileID: 12800000, guid: ffd2ee16c62ff61448ae337bbb1dfed3, type: 3}
+  - {fileID: 12800000, guid: 9bd11e1851e734744ad196bfda0e275c, type: 3}
+  - {fileID: 12800000, guid: a08eecbd3b2c28f45b0af56e69a41491, type: 3}
+  - {fileID: 12800000, guid: f817633fb4e8ded41a822104d893bd03, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

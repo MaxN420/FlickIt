@@ -6,6 +6,7 @@ using UnityEngine.UI;
 /** Controls the points in the persons game */
 public class PointsManager : MonoBehaviour {
 
+	public static int saveTokens = 10; 
 	public static int totalPoints = 0;
 	private float speed;
 	private Vector2 direction;

@@ -13,7 +13,13 @@ public class LevelManager : MonoBehaviour {
 	public Text TotalScore_UIText;
 	public GameObject levelPanelPass;
 	public GameObject levelPanelFail;
-	public static int levelTracker = 10;
+	public GameObject pausePanel;
+	public static int levelTracker = 1;
+	public static bool[] levelCompleted = {true, false, false, false, false, false, false, false, false, false,
+		false, false, false, false, false, false, false, false, false, false
+	};
+
+	public static int[] highscores = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	private GameObject refLevelTest;
 	private Object[] itemsToInstantiate;
 	private Button nextLevelButtonPass;
@@ -21,6 +27,10 @@ public class LevelManager : MonoBehaviour {
 	private Button quitGameButtonPass;
 	private Button tryAgainButtonFail;
 	private Button quitGameButtonFail;
+	private Button pauseResumeButton;
+	private Button pauseTryAgainButton;
+	private Button pauseQuitButton;
+
 	public static float levelTime = 0;
 	private bool levelFinished = false;
 	public static int levelPointsTotal;
@@ -30,6 +40,8 @@ public class LevelManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+		Load ();
+
 		switch (levelTracker) {
 		case 0:
 			SceneManager.LoadScene ("Main");
@@ -86,6 +98,56 @@ public class LevelManager : MonoBehaviour {
 			InstantiateLevel ("Level6to10");
 			InstantiateLevel("Level10");
 			break;
+		case 11:
+			InstantiateLevel ("Default");
+			InstantiateLevel ("Level11to15");
+			InstantiateLevel ("Level11");
+			break;
+		case 12:
+			InstantiateLevel ("Default");
+			InstantiateLevel ("Level11to15");
+			InstantiateLevel ("Level12");
+			break;
+		case 13:
+			InstantiateLevel ("Default");
+			InstantiateLevel ("Level11to15");
+			InstantiateLevel ("Level13");
+			break;
+		case 14:
+			InstantiateLevel ("Default");
+			InstantiateLevel ("Level11to15");
+			InstantiateLevel ("Level14");
+			break;
+		case 15:
+			InstantiateLevel ("Default");
+			InstantiateLevel ("Level11to15");
+			InstantiateLevel ("Level15");
+			break;
+		case 16:
+			InstantiateLevel ("Default");
+			InstantiateLevel ("Level16to20");
+			InstantiateLevel ("Level16");
+			break;
+		case 17:
+			InstantiateLevel ("Default");
+			InstantiateLevel ("Level16to20");
+			InstantiateLevel ("Level17");
+			break;
+		case 18:
+			InstantiateLevel ("Default");
+			InstantiateLevel ("Level16to20");
+			InstantiateLevel ("Level18");
+			break;
+		case 19:
+			InstantiateLevel ("Default");
+			InstantiateLevel ("Level16to20");
+			InstantiateLevel ("Level19");
+			break;
+		case 20:
+			InstantiateLevel ("Default");
+			InstantiateLevel ("Level16to20");
+			InstantiateLevel ("Level20");
+			break;
 		default:
 			break;
 		}
@@ -100,8 +162,15 @@ public class LevelManager : MonoBehaviour {
 		TotalScore_UIText.text = "";
 		ScoreText_UIText.text = "";
 		levelPanelPass = GameObject.Find ("Canvas(Clone)/PanelPass");
+		pausePanel = GameObject.Find ("Canvas(Clone)/PausePanel");
 		levelPanelFail = GameObject.Find ("Canvas(Clone)/PanelFail");
 		// initialising buttons?
+		pauseResumeButton = GameObject.Find ("Canvas(Clone)/PausePanel/ResumeBtn").GetComponent<Button> ();
+		pauseResumeButton.onClick.AddListener (resumeGame);
+		pauseTryAgainButton = GameObject.Find ("Canvas(Clone)/PausePanel/TryAgainBtn").GetComponent<Button> ();
+		pauseTryAgainButton.onClick.AddListener (tryAgain);
+		pauseQuitButton = GameObject.Find ("Canvas(Clone)/PausePanel/QuitGameBtn").GetComponent<Button> ();
+		pauseQuitButton.onClick.AddListener (GameOver);
 		nextLevelButtonPass = GameObject.Find ("Canvas(Clone)/PanelPass/NextLevelBtn").GetComponent<Button> ();
 		nextLevelButtonPass.onClick.AddListener (nextLevel);
 		tryAgainButtonPass = GameObject.Find ("Canvas(Clone)/PanelPass/TryAgainBtn").GetComponent<Button> ();
@@ -114,7 +183,9 @@ public class LevelManager : MonoBehaviour {
 		quitGameButtonFail.onClick.AddListener (GameOver);
 		levelPanelPass.SetActive (false);
 		levelPanelFail.SetActive (false);
+		pausePanel.SetActive (false);
 		levelTime = 0f;
+		PlayerMovement.movesCount = 3;
 	}
 		
 	void InstantiateLevel(string toInstantiate) {
@@ -127,19 +198,44 @@ public class LevelManager : MonoBehaviour {
 	void Update() {
 		Score_UIText.text = PlayerMovement.movesCount.ToString () + " moves left";
 		Level_UIText.text = "Level " + levelTracker.ToString ();
-		if (Input.GetKeyDown (KeyCode.V)) {
-			SceneManager.LoadScene ("Main");
-			levelTracker = 1;
-			PlayerMovement.movesCount = 3;
+
+		if (Input.GetKeyDown (KeyCode.P) || Input.GetKeyDown (KeyCode.Escape)) {
+			if (!pausePanel.activeInHierarchy) {
+				pauseGame ();
+			} else {
+				//(pausePanel.activeInHierarchy);
+				resumeGame ();
+			}
 		}
 
 		if (levelFinished != true) {
 			levelTime += Time.deltaTime;
 		}
 	}
+		
+	public void Save() {
+		SaveLoadManager.SavePlayer (this);
+	}
 
+	public static void Load() {
+		UserData ud = SaveLoadManager.LoadPlayer ();
+		levelPointsTotal = ud.points;
+		levelCompleted = ud.lvls;
+	}
+
+	public void pauseGame() {
+		Time.timeScale = 0;
+		pausePanel.SetActive (true);
+	}
+
+	public void resumeGame() {
+		Time.timeScale = 1;
+		pausePanel.SetActive (false);
+	}
 
 	public void GameOver() {
+		Time.timeScale = 1; 
+		Save ();
 		SceneManager.LoadScene ("Main");
 	}
 
@@ -149,14 +245,19 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void loadPanelPass() {
-		
+		levelCompleted [levelTracker - 1] = true;
 		levelFinished = true;
 		levelPanelPass.SetActive (true);
 		levelPoints = PointsManager.determineLevelPoints (PlayerMovement.movesCount, levelTime, levelTracker);
+		if (levelPoints > highscores [levelTracker - 1]) {
+			Debug.Log ("New Highscore!!");
+			highscores [levelTracker - 1] = levelPoints;
+		}
 		levelPointsTotal += levelPoints;
 		ScoreText_UIText.text = "+" + levelPoints.ToString();
 		ScoreText_UIText.GetComponent<PointsManager> ().Initialise (25, Vector2.up);
 		TotalScore_UIText.text = levelPointsTotal.ToString ();
+		Save ();
 	}
 
 	public void nextLevel() {
@@ -169,6 +270,7 @@ public class LevelManager : MonoBehaviour {
 
 	public void tryAgain() {
 		reloadLevel ();
+		Time.timeScale = 1;
 		PlayerMovement.movesCount = 3;
 	}
 
