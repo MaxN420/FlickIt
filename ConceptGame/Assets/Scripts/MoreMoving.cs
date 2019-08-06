@@ -16,12 +16,11 @@ public class MoreMoving : MonoBehaviour {
 		
 	}
 
-	// Gonna have to work this badboy out i think eeekkkkkkkkkkkkk shees a tricky one
 
 
 	// Update is called once per frame
 	void Update () {
-		// HACKIEST CODE KNOWN TO MAN, DEFINITELY SHOULD USE CUSTOMISABLE POINTS AND ENUMS BUT IM LAZY AND NEED THIS GAME FINISHED FUCK
+		// will update to use customisable points
 		if (transform.position == startPoint)
 			objectPosition = 0;
 		if (transform.position == point1)

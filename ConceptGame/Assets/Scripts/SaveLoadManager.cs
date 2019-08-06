@@ -19,7 +19,7 @@ public static class SaveLoadManager {
 	}
 
 	public static UserData LoadPlayer() {
-		// need to fix at some point, just checking save file exists
+		// just checking save file exists
 		if (File.Exists (Application.persistentDataPath + "/player.lsd")) {
 			BinaryFormatter bf = new BinaryFormatter ();
 			FileStream stream = new FileStream (Application.persistentDataPath + "/player.lsd", FileMode.Open);

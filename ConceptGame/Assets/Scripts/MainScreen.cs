@@ -12,7 +12,7 @@ public class MainScreen : MonoBehaviour {
 	public void Start() {
 		LevelManager.Load ();
 
-		if (SceneManager.GetActiveScene ().name != "Main") {
+		if (SceneManager.GetActiveScene ().name != "Main" && SceneManager.GetActiveScene ().name != "LevelSelect") {
 			TotalScore_UIText = GameObject.Find ("Canvas/Points").GetComponent<Text> ();
 			TotalScore_UIText.text = "Points: " + LevelManager.levelPointsTotal.ToString ();
 		}
@@ -22,9 +22,9 @@ public class MainScreen : MonoBehaviour {
 		SceneManager.LoadScene ("GenericLevel");
 	}
 
-	public void openShop() {
-		SceneManager.LoadScene ("Shop");
-	}
+	//public void openShop() {
+		//SceneManager.LoadScene ("Shop");
+	//}
 
 	public void openLevelSelect() {
 		SceneManager.LoadScene ("LevelSelect");
