@@ -156,11 +156,11 @@ public class LevelManager : MonoBehaviour {
 	void Start() {
 		//GameObject.Find ("Canvas(Clone)").
 		Level_UIText = GameObject.Find ("Canvas(Clone)/Level").GetComponent<Text> ();
-		Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text> ();
-		ScoreText_UIText = GameObject.Find ("Canvas(Clone)/ScoreText").GetComponent<Text> ();
-		TotalScore_UIText = GameObject.Find ("Canvas(Clone)/TotalScoreText").GetComponent<Text> ();
-		TotalScore_UIText.text = "";
-		ScoreText_UIText.text = "";
+		//Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text> ();
+		//ScoreText_UIText = GameObject.Find ("Canvas(Clone)/ScoreText").GetComponent<Text> ();
+		//TotalScore_UIText = GameObject.Find ("Canvas(Clone)/TotalScoreText").GetComponent<Text> ();
+		//TotalScore_UIText.text = "";
+		//ScoreText_UIText.text = "";
 		levelPanelPass = GameObject.Find ("Canvas(Clone)/PanelPass");
 		pausePanel = GameObject.Find ("Canvas(Clone)/PausePanel");
 		levelPanelFail = GameObject.Find ("Canvas(Clone)/PanelFail");
@@ -196,7 +196,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void Update() {
-		Score_UIText.text = PlayerMovement.movesCount.ToString () + " moves left";
+		//Score_UIText.text = PlayerMovement.movesCount.ToString () + " moves left";
 		Level_UIText.text = "Level " + levelTracker.ToString ();
 
 		if (Input.GetKeyDown (KeyCode.P) || Input.GetKeyDown (KeyCode.Escape)) {
@@ -254,9 +254,9 @@ public class LevelManager : MonoBehaviour {
 			highscores [levelTracker - 1] = levelPoints;
 		}
 		levelPointsTotal += levelPoints;
-		ScoreText_UIText.text = "+" + levelPoints.ToString();
-		ScoreText_UIText.GetComponent<PointsManager> ().Initialise (25, Vector2.up);
-		TotalScore_UIText.text = levelPointsTotal.ToString ();
+		//ScoreText_UIText.text = "+" + levelPoints.ToString();
+		//ScoreText_UIText.GetComponent<PointsManager> ().Initialise (25, Vector2.up);
+		//TotalScore_UIText.text = levelPointsTotal.ToString ();
 		Save ();
 	}
 

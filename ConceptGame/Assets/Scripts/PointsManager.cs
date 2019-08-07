@@ -21,11 +21,11 @@ public class PointsManager : MonoBehaviour {
 	void Update () {
 		
 		float translation = speed * Time.deltaTime;
-		if (LevelManager.ScoreText_UIText.GetComponent<RectTransform>().localPosition.y < 160) {
-			transform.Translate (direction * translation);
-		} else {
-			LevelManager.ScoreText_UIText.text = "";
-		}
+		//if (LevelManager.ScoreText_UIText.GetComponent<RectTransform>().localPosition.y < 160) {
+	//		transform.Translate (direction * translation);
+	//	} else {
+	//		LevelManager.ScoreText_UIText.text = "";
+	//	}
 	}
 
 	public static int determineLevelPoints(int moves, float timeTaken, int level) {

@@ -1,0 +1,43 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 10.1]
+    Renderer: NVIDIA GeForce 320M (ID=0x8a0)
+    Vendor:   NVIDIA
+    VRAM:     792 MB
+    Driver:   9.18.13.3221
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+- Completed reload, in  0.053 seconds
+Platform assembly: C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Max\Desktop\FlickItRepo\ConceptGame\FlickItExe_Data\Managed\System.dll (this message is harmless)
+desktop: 1280x800 60Hz; virtual: 1280x800 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.607158 ms
+Loaded data
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 13.140131 ms
+Loaded data
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+
+Unloading 131 unused Assets to reduce memory usage. Loaded Objects now: 388.
+Total: 0.933437 ms (FindLiveObjects: 0.065572 ms CreateObjectMapping: 0.031286 ms MarkObjects: 0.401146 ms  DeleteObjects: 0.429432 ms)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1f08 -> priority: 1 
