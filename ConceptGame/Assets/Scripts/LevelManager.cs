@@ -156,7 +156,7 @@ public class LevelManager : MonoBehaviour {
 	void Start() {
 		//GameObject.Find ("Canvas(Clone)").
 		Level_UIText = GameObject.Find ("Canvas(Clone)/Level").GetComponent<Text> ();
-		//Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text> ();
+		Score_UIText = GameObject.Find ("Canvas(Clone)/Score").GetComponent<Text> ();
 		//ScoreText_UIText = GameObject.Find ("Canvas(Clone)/ScoreText").GetComponent<Text> ();
 		//TotalScore_UIText = GameObject.Find ("Canvas(Clone)/TotalScoreText").GetComponent<Text> ();
 		//TotalScore_UIText.text = "";
@@ -196,7 +196,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void Update() {
-		//Score_UIText.text = PlayerMovement.movesCount.ToString () + " moves left";
+		Score_UIText.text = PlayerMovement.movesCount.ToString () + " moves left";
 		Level_UIText.text = "Level " + levelTracker.ToString ();
 
 		if (Input.GetKeyDown (KeyCode.P) || Input.GetKeyDown (KeyCode.Escape)) {
